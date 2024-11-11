@@ -13,7 +13,7 @@ Este proyecto permite a los usuarios monitorear el consumo diario de agua en tie
 - **Software**:
   - **Backend**: Spring Boot 
   - **Base de datos**: MySQL
-  - **Frontend (App Android)**: Android Studio 
+  - **Frontend**: Android Studio 
   - **Comunicación**: REST API (Retrofit en Android)
 
 ## 🎯 Propósito del Proyecto
