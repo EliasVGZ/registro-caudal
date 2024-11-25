@@ -16,12 +16,23 @@ public class WaterUsage {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private double caudal;
-    private double totalVolume;
+    @Column(name = "total_volumen")
+    private double totalVolumen;
+
     @Column(name = "fecha")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy HH:mm:ss")
     private LocalDateTime fecha;
 
     public WaterUsage() {
+    }
+
+    public WaterUsage(double totalVolumen, LocalDateTime fecha) {
+        this.totalVolumen = totalVolumen;
+        this.fecha = fecha;
+    }
+
+    public WaterUsage(double volumen) {
+        this.totalVolumen = volumen;
     }
 
     public Long getId() {
@@ -40,12 +51,12 @@ public class WaterUsage {
         this.caudal = caudal;
     }
 
-    public double getTotalVolume() {
-        return totalVolume;
+    public double getTotalVolumen() {
+        return totalVolumen;
     }
 
-    public void setTotalVolume(double totalVolume) {
-        this.totalVolume = totalVolume;
+    public void setTotalVolume(double totalVolumen) {
+        this.totalVolumen = totalVolumen;
     }
 
     public LocalDateTime getFecha() {

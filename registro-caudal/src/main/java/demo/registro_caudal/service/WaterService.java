@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.List;
 
 @Service
 public class WaterService {
@@ -21,23 +22,30 @@ public class WaterService {
         return waterRepository.save(usage);
     }
 
-
-
     //Metodo para obtener el volumene de agua consumido en un diia
     public double getWaterVolumeByDate(LocalDate date) {
-        // Define el inicio del día
+        // Define el inicio y fin del día
         LocalDateTime startOfDay = date.atStartOfDay();
+        LocalDateTime endOfDay = date.atTime(23, 59, 59);
 
-        // Si es hoy, usa el momento actual como fin del rango
-        LocalDateTime endOfDay = date.isEqual(LocalDate.now())
-                ? LocalDateTime.now()
-                : date.atTime(LocalTime.MAX);
+        // Obtén los registros dentro del rango
+        List<WaterUsage> registros = waterRepository.findByFechaBetween(startOfDay, endOfDay);
 
-        // Consulta solo los registros dentro del rango de tiempo para esa fecha
-        return waterRepository.findByFechaBetween(startOfDay, endOfDay).stream()
-                .mapToDouble(WaterUsage::getTotalVolume)
-                .sum();
+        if (registros.isEmpty()) {
+            System.out.println("No hay registros para el rango de fechas.");
+            return 0.0;
+        }
+
+        System.out.println("Registros obtenidos: " + registros);
+
+        // Toma el volumen inicial y final
+        double volumeStart = registros.get(0).getTotalVolumen();
+        double volumeEnd = registros.get(registros.size() - 1).getTotalVolumen();
+
+        return Math.max(0, volumeEnd - volumeStart);
     }
+
+
 
 
 

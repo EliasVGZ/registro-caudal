@@ -13,8 +13,8 @@ public interface WaterUsageApi {
     @POST("api/water/record")
     Call<String> recordWaterUsage(@Body WaterUsage waterUsage);
 
-    @GET("water/daily-volume")
-    Call<Double> getTodayWaterVolume();
+    @GET("api/water/daily-volume")
+    Call<WaterUsage> getTodayWaterVolume();
 
 
 }

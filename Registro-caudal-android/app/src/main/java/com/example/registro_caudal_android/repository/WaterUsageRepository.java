@@ -3,6 +3,7 @@ package com.example.registro_caudal_android.repository;
 import android.util.Log;
 
 import com.example.registro_caudal_android.interfaces.WaterUsageApi;
+import com.example.registro_caudal_android.model.WaterUsage;
 import com.example.registro_caudal_android.retrofit.RetrofitClient;
 
 import retrofit2.Call;
@@ -17,8 +18,8 @@ public class WaterUsageRepository {
         waterUsageApi = RetrofitClient.getRetrofitInstance().create(WaterUsageApi.class);
     }
 
-    public void getTodayWaterVolume(Callback<Double> callback) {
-        Call<Double> call = waterUsageApi.getTodayWaterVolume();
+    public void getTodayWaterVolume(Callback<WaterUsage> callback) {
+        Call<WaterUsage> call = waterUsageApi.getTodayWaterVolume();
         call.enqueue(callback);
     }
 
